@@ -1,0 +1,45 @@
+.col{
+    border-radius: 25px; 
+    border: 2px solid black;
+    width: 100px;
+    height: 500px;
+    text-align: center;
+}
+
+.calculadora{
+    border-radius: 25px; 
+    border: 2px solid black;
+    background-color: #b9facd;
+    width: 350px;
+    height: 430px;
+    
+}
+
+.pantallaCalc{
+    margin: auto;
+    border-radius: 25px; 
+    border: 2px solid black;
+    background-color: #b9b9b9;
+    width: 250px;
+    height: 70px;
+
+    margin-top: 10px;
+}
+
+.teclaCalc{
+    margin: auto;
+    border-radius: 25px; 
+    border: 2px solid black;
+    background-color: #ffffff;
+    width: 80px;
+    height: 80px;
+
+}
+
+img.billete{
+    width: 150px;
+}
+
+img.moneda{
+    width: 70px;
+}
