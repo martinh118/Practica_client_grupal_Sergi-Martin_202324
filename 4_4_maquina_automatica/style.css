@@ -15,7 +15,7 @@
     
 }
 
-.pantallaCalc{
+.pantallaCalc, .pantallaBilletes{
     margin: auto;
     border-radius: 25px; 
     border: 2px solid black;
@@ -25,6 +25,8 @@
 
     margin-top: 10px;
 }
+
+
 
 .teclaCalc{
     margin: auto;
@@ -42,4 +44,5 @@ img.billete{
 
 img.moneda{
     width: 70px;
+    margin-left: 10px;
 }

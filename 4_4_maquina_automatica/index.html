@@ -12,7 +12,8 @@
     <script src="./bootstrap/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="style.css">
 
-
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script type="module" src="controlador.js"></script>
 </head>
 
 <body>
@@ -26,7 +27,8 @@
                     <div class="calculadora ">
                         <div class="row">
                             <div class="pantallaCalc align-self-center">
-                                <h2>23,50€</h2>
+                                
+                               <h2>€</h2>
                             </div>
                         </div>
 
@@ -82,25 +84,30 @@
 
                 <!--BILLETES-->
                 <div class="row">
-                    <img src="./src/billete_50.png" class="billete">
-                    <img src="./src/billete_20.png" class="billete">
+                    <img src="./src/billete_50.png" class="billete" value="50">
+                    <img src="./src/billete_20.png" class="billete" value="20">
                 </div>
                 <div class="row">
-                    <img src="./src/billete_10.png" class="billete">
-                    <img src="./src/billete_5.png" class="billete">
+                    <img src="./src/billete_10.png" class="billete" value="10">
+                    <img src="./src/billete_5.png" class="billete" value="5">
                 </div>
                 <div class="row">
-                    <img src="./src/moneda_2.png" class="moneda">
-                    <img src="./src/moneda_1.png" class="moneda">
-                    <img src="./src/moneda_50c.png" class="moneda">
-                    <img src="./src/moneda_20c.png" class="moneda">
+                    <img src="./src/moneda_2.png" class="moneda" value="2">
+                    <img src="./src/moneda_1.png" class="moneda" value="1">
+                    <img src="./src/moneda_50c.png" class="moneda" value="0.50">
+                    <img src="./src/moneda_20c.png" class="moneda" value="0.20">
                     
                 </div>
                 <div class="row">
-                    <img src="./src/moneda_10c.png" class="moneda">
-                    <img src="./src/moneda_5c.png" class="moneda">
-                    <img src="./src/moneda_2c.png" class="moneda">
-                    <img src="./src/moneda_1c.png" class="moneda">
+                    <img src="./src/moneda_10c.png" class="moneda" value="0.10">
+                    <img src="./src/moneda_5c.png" class="moneda" value="0.05">
+                    <img src="./src/moneda_2c.png" class="moneda" value="0.02">
+                    <img src="./src/moneda_1c.png" class="moneda" value="0.01">
+                </div>
+                <div class="row">
+                    <div class="pantallaBilletes">
+                        <h2 id="pagamentTotal"></h2>
+                    </div>
                 </div>
             </div>
             <div class="col">
@@ -125,18 +132,18 @@
                     <img src="./src/moneda_1c.png" class="moneda">
                 </div>
                 <div class="row">
-                    <input type="number" style="width:2.5em; margin-left: 40px;" min="0">
-                    <input type="number" style="width:2em; margin-left: 70px;" min="0">
-                    <input type="number" style="width:2em; margin-left: 70px;" min="0">
-                    <input type="number" style="width:2em; margin-left: 70px;" min="0">
-                    <input type="number" style="width:2em; margin-left: 65px;" min="0">
-                    <input type="number" style="width:2em; margin-left: 35px;" min="0">
-                    <input type="number" style="width:2em; margin-left: 35px;" min="0">
-                    <input type="number" style="width:2em; margin-left: 35px;" min="0">
-                    <input type="number" style="width:2em; margin-left: 45px;" min="0">
-                    <input type="number" style="width:2em; margin-left: 40px;" min="0">
-                    <input type="number" style="width:2em; margin-left: 35px;" min="0">
-                    <input type="number" style="width:2em; margin-left: 35px;" min="0">
+           <!--50€--><input type="number" style="width:2.5em; margin-left: 40px;" min="0" value="3">
+            <!--20€--><input type="number" style="width:2.5em; margin-left: 70px;" min="0" value="5">
+            <!--10€--><input type="number" style="width:2.5em; margin-left: 70px;" min="0" value="10">
+            <!--5€--><input type="number" style="width:2.5em; margin-left: 70px;" min="0" value="15">
+            <!--2€--><input type="number" style="width:2.5em; margin-left: 50px;" min="0" value="20">
+            <!--1€--><input type="number" style="width:2.5em; margin-left: 35px;" min="0" value="25">
+            <!--0,50€--><input type="number" style="width:2.5em; margin-left: 35px;" min="0" value="25">
+            <!--0,20€--><input type="number" style="width:2.5em; margin-left: 35px;" min="0" value="20">
+            <!--0,10€--><input type="number" style="width:2.5em; margin-left: 45px;" min="0" value="20">
+            <!--0,05€--><input type="number" style="width:2.5em; margin-left: 40px;" min="0" value="15">
+            <!--0,02€--><input type="number" style="width:2.5em; margin-left: 35px;" min="0" value="15">
+            <!--0,01€--><input type="number" style="width:2.5em; margin-left: 35px;" min="0" value="10">
                 </div>
             </div>
         </div>
