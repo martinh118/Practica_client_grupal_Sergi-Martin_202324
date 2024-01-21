@@ -167,8 +167,12 @@ function realizarPago(){
         for (const key in billetesCliente) {
             billetesCliente[key] = 0;
         }
-
+        
+        $("#pagamentTotal").html(" ");
+        sumaPago = 0;
+        
         returnMoney(retorn);
+
 
     }else if(cliente < $cajero){
         infoHtml += "<br><b>Encara falten: </b>" + ($cajero - cliente).toFixed(2) + "€";  
@@ -178,60 +182,17 @@ function realizarPago(){
     $("#retorn").html(infoHtml);
 }
 
-function returnMoney(retorn) { 
 
+
+function returnMoney(retorn, billetesCajero) { 
     retorn = parseFloat(retorn);
+    const billValues = Object.keys(billetesCajero).sort((a, b) => b - a);
 
-    if(retorn == 0){
-        for (const key in billetesCliente) {
-            $("#caj" + key).attr("value", billetesCajero[key]);            
-        }
-        return;
-    } else {
-        if (retorn >= 50 && billetesCajero[50] > 0) {
-            billetesCajero[50] -= 1;                    
-            returnMoney(retorn - 50);
-        } else if (retorn >= 20 && billetesCajero[20] > 0) {
-            billetesCajero[20] -= 1;                    
-            returnMoney(retorn - 20);
-        } else if (retorn >= 10 && billetesCajero[10] > 0) {
-            billetesCajero[10] -= 1;                    
-            returnMoney(retorn - 10);
-        } else if (retorn >= 5 && billetesCajero[5] > 0) {
-            billetesCajero[5] -= 1;                
-            returnMoney(retorn - 5);
-        } else if (retorn >= 2 && billetesCajero[2] > 0) {
-            billetesCajero[2] -= 1;
-            returnMoney(retorn - 2);
-        } else if ( retorn >= 1 && billetesCajero[1] > 0) {
-            billetesCajero[1] -= 1;
-            returnMoney(retorn - 1);
-        } else if( retorn >= 0.50 && billetesCajero["05"] > 0){
-            billetesCajero["05"] -= 1;
-            returnMoney(retorn - 0.50); 
-        } else if (retorn >= 0.20 && billetesCajero["02"] > 0){
-            billetesCajero["02"] -= 1;
-            returnMoney(retorn - 0.20);
-        }
-        else if (retorn >= 0.10 && billetesCajero["01"] > 0){
-            billetesCajero["01"] -= 1;
-            returnMoney(retorn - 0.10);
-        }
-        else if (retorn >= 0.05 && billetesCajero["005"] > 0){
-            billetesCajero["005"] -= 1;
-            returnMoney(retorn - 0.05);
-        }
-        else if (retorn >= 0.02 && billetesCajero["002"] > 0){
-            billetesCajero["002"] -= 1;
-            returnMoney(retorn - 0.02);
-        }
-        else if (retorn >= 0.01 && billetesCajero["001"] > 0){
-            billetesCajero["001"] -= 1;
-            returnMoney(retorn - 0.01);
-        }
-        else{
-            alert("No hi ha prou monedes per a tornar el canvi");
-            return;
+    for (let i = 0; i < billValues.length; i++) {
+        const bill = billValues[i];
+        while (retorn >= bill && billetesCajero[bill] > 0) {
+            billetesCajero[bill]--;
+            retorn -= bill;
         }
     }
 }
