@@ -39,7 +39,44 @@ if ($numEntero == ""){
     $(".pantallaCalc").html("<h2>0,00€</h2>");
 }
 
-
+//Funció per a detectar les tecles que introdueixes per teclat
+window.addEventListener("keydown", function(e) {;
+    //eliminar
+    if(e.key == "Backspace"){
+        if(eoc == "c"){
+            if ($numDecimal == ""){
+                $numEntero = $numEntero.substring(0, $numEntero.length - 1);
+                //canvar de deimal a enter
+                eoc = "e";
+            }else{
+                $numDecimal = $numDecimal.substring(0, $numDecimal.length - 1);
+            }
+            
+            mostrarPantalla($numEntero, $numDecimal)
+    
+            return;
+        }else{
+            $numEntero = $numEntero.substring(0, $numEntero.length - 1);
+            mostrarPantalla($numEntero, $numDecimal);
+        }
+    }else if(e.key == "," || e.key == "."){
+        //Canviar de enter a decimal
+        eoc = "c";
+    }
+    else if(e.key == "Enter"){
+        //Pagar
+        realizarPago();
+    }
+    else if(e.key == "0" || e.key == "1" || e.key == "2" || e.key == "3" || e.key == "4" || e.key == "5" || e.key == "6" || e.key == "7" || e.key == "8" || e.key == "9"){
+        if(eoc == "c"){
+            $numDecimal += e.key;
+            mostrarPantalla($numEntero, $numDecimal);
+        }else{
+            $numEntero += e.key;
+            mostrarPantalla($numEntero, $numDecimal);
+        }
+    }
+});
 
 
 //Funció per a que el caixer introdueixi els el import
@@ -55,52 +92,62 @@ let $teclas = $(".teclaCalc").on("click", function(){
 
             if ($numDecimal == ""){
                 $numEntero = $numEntero.substring(0, $numEntero.length - 1);
+                //canvar de deimal a enter
                 eoc = "e";
             }else{
                 $numDecimal = $numDecimal.substring(0, $numDecimal.length - 1);
             }
             
-            $(".pantallaCalc").html("<h2>"+$numEntero+","+ $numDecimal+ "€</h2>");
+            mostrarPantalla($numEntero, $numDecimal)
     
             return;
         }      
         else{
-            if ($numDecimal.length == 0){
-               $numDecimal = "00";               
-                
-            }else{
-                $numDecimal = $numDecimal + $num;
-            }
-            $(".pantallaCalc").html("<h2>"+$numEntero+","+ $numDecimal+ "€</h2>");
+            $numDecimal += $num;
+            
+            mostrarPantalla($numEntero, $numDecimal);
 
         }
     }else if($num == ","){
+        //Canviar de enter a decimal
         eoc = "c";
     }else{
         if ($num == "←"){
                    
             //$pantalla = $pantalla.substring(0, $pantalla.length - 2);
             $numEntero = $numEntero.substring(0, $numEntero.length - 1);
-            mostrarPantalla();
-    
+            mostrarPantalla($numEntero, $numDecimal);   
             return;
         }else{
 
-            $numEntero += $num;
-            
+            $numEntero += $num;            
+            mostrarPantalla($numEntero, $numDecimal);
             
         }
 
-    }
-    
-    
-    mostrarPantalla($numEntero, $numDecimal);
-
-    
+    }    
 
 });
 
+//Funció per a mostrar el import a la pantalla
 function mostrarPantalla($numEntero, $numDecimal){
+
+    if ($numDecimal.length == 1){
+        $numDecimal = $numDecimal + "0";
+    }else if($numDecimal.length == 0){
+        $numDecimal = "00";
+    }else if($numDecimal.length > 2){
+        alert("No pots introduir més de dos decimals");
+        $numDecimal = $numDecimal.substring(0, $numDecimal.length - 1);
+    }
+
+    if ($numEntero.length == 0){
+        $numEntero = "0";
+    }else if($numEntero.length > 4){
+        alert("No pots introduir més de 5 numeros");
+        $numEntero = $numEntero.substring(0, $numEntero.length - 1);
+    }
+
     $(".pantallaCalc").html("<h2>"+$numEntero+","+$numDecimal+"€</h2>");
 }
 
