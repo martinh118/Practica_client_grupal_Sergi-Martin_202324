@@ -144,34 +144,19 @@ function realizarPago(){
            billetesCajero[key] = (parseFloat(billetesCajero[key]) + parseFloat(billetesCliente[key]));
         }
 
-        // billetesCajero = {
-        //     50:parseFloat($("#caj50").attr("value")),
-        //     20:parseFloat($("#caj20").attr("value")),
-        //     10:parseFloat($("#caj10").attr("value")),
-        //     5:parseFloat($("#caj5").attr("value")),
-        //     2:parseFloat($("#caj2").attr("value")),
-        //     1:parseFloat($("#caj1").attr("value")),
-        //     0.50:parseFloat($("#caj05").attr("value")),
-        //     0.20:parseFloat($("#caj02").attr("value")),
-        //     0.10:parseFloat($("#caj01").attr("value")),
-        //     0.05:parseFloat($("#caj005").attr("value")),
-        //     0.02:parseFloat($("#caj002").attr("value")),
-        //     0.01:parseFloat($("#caj001").attr("value"))
-        // };
-        
-        // for( let bill in billetesCajero){
-        //     console.log(bill + ": " + billetesCajero[bill]);
-           
-        // }
-        
+         
         for (const key in billetesCliente) {
             billetesCliente[key] = 0;
-        }
+        }     
         
+
         $("#pagamentTotal").html(" ");
+        
         sumaPago = 0;
         
-        returnMoney(retorn);
+        returnMoney(retorn, billetesCajero);  
+       
+
 
 
     }else if(cliente < $cajero){
