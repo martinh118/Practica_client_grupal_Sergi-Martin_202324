@@ -103,8 +103,7 @@ let $teclas = $(".teclaCalc").on("click", function(){
             return;
         }      
         else{
-            $numDecimal += $num;
-            
+            $numDecimal += $num;            
             mostrarPantalla($numEntero, $numDecimal);
 
         }
