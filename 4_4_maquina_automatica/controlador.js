@@ -1,5 +1,6 @@
 let $numEntero = "";
 let $numDecimal = "";
+let eoc = "e"
 let sumaPago = 0;
 
 //Cuantitat de billets que ha introduit el client
@@ -34,53 +35,74 @@ let billetesCajero = {
     "001":$("#caj001").attr("value")
 };
 
+if ($numEntero == ""){
+    $(".pantallaCalc").html("<h2>0,00€</h2>");
+}
+
+
+
+
 //Funció per a que el caixer introdueixi els el import
 let $teclas = $(".teclaCalc").on("click", function(){
     let $num = $(this).text();
-    let $pantalla =  $(".pantallaCalc").text();
-    
+    //let $pantalla =  $(".pantallaCalc").text();  
+
     $num = $num.trim();
-    
-   
-    if($pantalla.includes(",")){
-        if ($num == "←"){
-            //$pantalla = $pantalla.slice(0, -1);        
-            $pantalla = $pantalla.substring(0, $pantalla.length - 2);
+
+    if(eoc == "c"){
+        if ($num == "←"){                  
+            //$pantalla = $pantalla.substring(0, $pantalla.length - 2);
+
             if ($numDecimal == ""){
                 $numEntero = $numEntero.substring(0, $numEntero.length - 1);
+                eoc = "e";
             }else{
                 $numDecimal = $numDecimal.substring(0, $numDecimal.length - 1);
             }
-            $(".pantallaCalc").html("<h2>"+$pantalla+"€</h2>");
+            
+            $(".pantallaCalc").html("<h2>"+$numEntero+","+ $numDecimal+ "€</h2>");
     
             return;
-        }else if($num == ","){
-            return;
-        }       
+        }      
         else{
-            $numDecimal += $num;
-            $pantalla = $pantalla + $numDecimal;
+            if ($numDecimal.length == 0){
+               $numDecimal = "00";               
+                
+            }else{
+                $numDecimal = $numDecimal + $num;
+            }
+            $(".pantallaCalc").html("<h2>"+$numEntero+","+ $numDecimal+ "€</h2>");
+
         }
+    }else if($num == ","){
+        eoc = "c";
     }else{
         if ($num == "←"){
-            //$pantalla = $pantalla.slice(0, -1);        
-            $pantalla = $pantalla.substring(0, $pantalla.length - 2);
+                   
+            //$pantalla = $pantalla.substring(0, $pantalla.length - 2);
             $numEntero = $numEntero.substring(0, $numEntero.length - 1);
-            $(".pantallaCalc").html("<h2>"+$pantalla+"€</h2>");
+            mostrarPantalla();
     
             return;
         }else{
+
             $numEntero += $num;
+            
             
         }
 
     }
     
-    $(".pantallaCalc").html("<h2>"+$numEntero+$numDecimal+"€</h2>");
+    
+    mostrarPantalla($numEntero, $numDecimal);
 
     
 
 });
+
+function mostrarPantalla($numEntero, $numDecimal){
+    $(".pantallaCalc").html("<h2>"+$numEntero+","+$numDecimal+"€</h2>");
+}
 
 
 //Funció per a que el empleat introdueixi els billets
@@ -131,7 +153,6 @@ function realizarPago(){
     }
     
     $cajero = parseFloat($cajero.replace("€", "").replace(",", "."));
-    console.log($cajero);
     infoHtml = "<b>Diners Caixer: </b>" + $cajero + "€";
     infoHtml += "<br><b>Diners Client: </b>" + cliente + "€";
 
@@ -155,9 +176,6 @@ function realizarPago(){
         sumaPago = 0;
         
         returnMoney(retorn, billetesCajero);  
-       
-
-
 
     }else if(cliente < $cajero){
         infoHtml += "<br><b>Encara falten: </b>" + ($cajero - cliente).toFixed(2) + "€";  

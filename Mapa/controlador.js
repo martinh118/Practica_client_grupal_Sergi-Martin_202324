@@ -8,6 +8,7 @@ const svgNS = "http://www.w3.org/2000/svg";
 //drop
 //dragstart
 
+//Quan s'agafi un dels divs de les comarques disponibles, guarda el seu identificador.
 $("#comarques").on("dragstart", function (event) {
     id_comarca = event.target.id;
     div = document.getElementById(id_comarca);
@@ -18,38 +19,29 @@ $("#comarques").on("dragstart", function (event) {
 
 });
 
-document.getElementById("comarques").addEventListener("dragend", function (event) {
 
-
-});
-
-
-
-$("#Catalunya").on("drop", function (event) {
+ 
+$("#mapa").on("drop", function (event) {
     event.preventDefault();
     let zona = event.target.id;
     let divZona = document.getElementById(zona);
 
-    if (divZona.id != "Catalunya") {
+    if (divZona.id != "mapa") {
         console.log("Drop in: " + divZona.id);
         let comarc = div.id.replace("_", "");
         //console.log("comarc: "+comarc);
         if (divZona.id == comarc) {
 
             var bbox = divZona.getBBox();
-            var x = (bbox.x + bbox.width / 2) - 25;
-            var y = (bbox.y + bbox.height / 2) + 15;
+            var x = (bbox.x + bbox.width / 2) - 30;
+            var y = (bbox.y + bbox.height / 2)+ 5;
 
-/** 
-            let x = event.offsetX;
-            let y = event.offsetY;
-    */        
             mostrarNombre(comarc, x, y);
 
             divZona.setAttribute("fill", "green");
             divZona.setAttribute("class", "correct");
             contador++;
-            document.getElementById("contador").innerHTML = contador;
+            document.getElementById("contador").innerHTML = "<b>Punts: " + contador + "</b>";
             div.remove();
             mostrarCongrats();
         } else if (divZona.getAttribute("class") != "correct" && divZona.id != comarc) {
@@ -60,34 +52,35 @@ $("#Catalunya").on("drop", function (event) {
 });
 
 function mostrarNombre(comarca, x , y) {
-    let $prov = document.getElementById("Catalunya");
+    let prov = document.getElementById("mapa").firstChild;
+    console.log(prov);
     let t = document.createElementNS(svgNS, "text");
     t.appendChild(document.createTextNode(comarca));
     //console.log("x: " + x + " - y: " + y + " - comarca: "+comarca);
     t.setAttribute("style", "position: absolute;font-size:20px");
     t.setAttribute("x", x);
     t.setAttribute("y", y);
-    $prov.appendChild(t);
+    prov.appendChild(t);
 }
 
-$("#Catalunya").on("dragover", function (event) {
+$("#mapa").on("dragover", function (event) {
     event.preventDefault();
     let zona = event.target.id;
     let divZona = document.getElementById(zona);
 
-    if (divZona.id != "Catalunya") {
+    if (divZona.id != "mapa") {
         if (divZona.getAttribute("class") != "correct") {
             divZona.setAttribute("fill", "red");
         }
     }
 });
 
-$("#Catalunya").on("dragleave", function (event) {
+$("#mapa").on("dragleave", function (event) {
     event.preventDefault();
     let zona = event.target.id;
     let divZona = document.getElementById(zona);
 
-    if (divZona.id != "Catalunya") {
+    if (divZona.id != "mapa") {
         if (divZona.getAttribute("class") != "correct") {
             divZona.removeAttribute("fill");
         }
@@ -142,4 +135,25 @@ function mostrarIncorrecte() {
         }, 3000);
     }
     
+};
+
+function crearBotones(){
+    let $paths = $("svg").children();
+    let $botons = $("#comarques");
+
+    for(let path of $paths){
+        let btn = document.createElement("div");
+        let text = document.createTextNode(path.id);
+        btn.appendChild(text);
+        btn.setAttribute("id", "_"+path.id);
+        btn.setAttribute("draggable", "true");
+        btn.setAttribute("class", "comarc");
+
+        $botons.append(btn);
+    }
+
 }
+
+crearBotones();
+
+        
