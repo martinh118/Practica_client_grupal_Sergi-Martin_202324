@@ -211,6 +211,7 @@ function realizarPago(){
            billetesCajero[key] = (parseFloat(billetesCajero[key]) + parseFloat(billetesCliente[key]));
         }
 
+        
          
         for (const key in billetesCliente) {
             billetesCliente[key] = 0;
@@ -240,8 +241,12 @@ function returnMoney(retorn, billetesCajero) {
     for (let i = 0; i < billValues.length; i++) {
         const bill = billValues[i];
         while (retorn >= bill && billetesCajero[bill] > 0) {
+            
             billetesCajero[bill]--;
             retorn -= bill;
+        
+            
+        
         }
     }
 }
